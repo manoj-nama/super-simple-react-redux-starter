@@ -5,6 +5,8 @@ export default class Filter extends Component {
 	constructor(props) {
 		super(props);
 		this.elementOffset = 0;
+		console.log(this.props.filters);
+		this.tempFilters = Object.assign({}, this.props.filters, {});
 	}
 
 	componentDidMount() {
@@ -27,13 +29,34 @@ export default class Filter extends Component {
 		document.removeEventListener("scroll", this._stickyScroll.bind(this), false);
 	}
 
+	handleChange(evt, field) {
+		this.tempFilters[field] = evt.target.value;
+	}
+
 	render() {
 		return (
-			<div className="filter-component" ref="filterComponent">
-				<i className="fa fa-filter"></i> Filters
-				<button disabled={this.props.loading} onClick={this.props.onUpdate}> Update list </button>
-
-				<a className="filter-dropdown" href="javascript:void(0)">
+			<div className="filter-component" ref="filterComponent" style={{overflow: 'hidden'}}>
+				<span style={{float: 'left'}}><i className="fa fa-filter"></i> Filters</span>
+				<form style={{float: 'left'}}>
+					<select
+						name="sortOrder"
+						disabled={this.props.loading}
+						defaultValue={this.tempFilters['sort_order']}
+						onChange={(e) => {
+							this.handleChange(e, 'sort_order');
+						} }>
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+					</select>
+					<button
+						disabled={this.props.loading}
+						onClick={() => {
+							this.props.onUpdate(this.tempFilters);
+						} }> 
+						Update list 
+					</button>
+				</form>
+				<a style={{float: 'left'}} className="filter-dropdown" href="javascript:void(0)">
 					<i className="fa fa-chevron-down"></i>
 				</a>
 			</div>

@@ -16,9 +16,9 @@ class AppContainer extends Component {
 		this._fetchLoans();
 	}
 
-	_fetchLoans() {
+	_fetchLoans(filters) {
 		const { dispatch } = this.props;
-		dispatch(api.fetchLoans());
+		dispatch(api.fetchLoans(filters));
 	}
 
 	render() {
