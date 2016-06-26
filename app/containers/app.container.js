@@ -27,7 +27,7 @@ class AppContainer extends Component {
 				<Header></Header>
 				<Filter filters={this.props.filters}></Filter>
 				<List items={this.props.loans.items} loading={this.props.loans.isFetching}></List>
-				<Pager></Pager>				
+				<Pager paging={this.props.paging}></Pager>				
 			</div>
 		);
 	}

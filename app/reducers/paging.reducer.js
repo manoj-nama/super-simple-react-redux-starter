@@ -11,9 +11,9 @@ const pagingReducer = function(state = initialState, action) {
 	switch(action.type) {
 		case actions.CHANGE_PAGE:
 			return Object.assign({}, state, {
-				total: action.params.total_count,
-				hits: action.params.hit_count,
-				pages: action.params.page_count,
+				total: action.params.total_count || state.total,
+				hits: action.params.hit_count || state.hits,
+				pages: action.params.page_count || state.pages,
 				currentPage: action.params.currentPage || state.currentPage
 			});
 	}
