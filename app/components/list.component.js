@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 export default class List extends Component {
 	render() {
@@ -18,4 +18,9 @@ export default class List extends Component {
 			</div>
 		);
 	}
+}
+
+List.PropTypes = {
+	items: PropTypes.object,
+	loading: PropTypes.boolean
 }

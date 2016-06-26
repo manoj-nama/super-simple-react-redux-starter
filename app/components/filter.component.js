@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 export default class Filter extends Component {
 	render() {
@@ -6,4 +6,8 @@ export default class Filter extends Component {
 			<div className="filter-component">This is filter component</div>
 		);
 	}
+}
+
+Filter.PropTypes = {
+	filters: PropTypes.object
 }
