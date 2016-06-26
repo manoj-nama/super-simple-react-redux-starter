@@ -25,8 +25,14 @@ class AppContainer extends Component {
 		return (
 			<div>
 				<Header></Header>
-				<Filter filters={this.props.filters}></Filter>
-				<List items={this.props.loans.items} loading={this.props.loans.isFetching}></List>
+				<Filter
+					onUpdate={this._fetchLoans.bind(this)}  
+					filters={this.props.filters}>
+				</Filter>
+				<List
+					items={this.props.loans.items} 
+					loading={this.props.loans.isFetching}>
+				</List>
 				<Pager paging={this.props.paging}></Pager>				
 			</div>
 		);
@@ -35,6 +41,7 @@ class AppContainer extends Component {
 }
 
 const mapStateToProps = function (state) {
+	console.log(state);
 	return state;
 }
 

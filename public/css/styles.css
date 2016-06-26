@@ -64,17 +64,81 @@ h1.main-logo {
 
 .filter-component {
   padding: 20px;
+  position: relative;
+  z-index: 1;
   background-color: #fff;
   border-top: 1px solid #eee;
   box-shadow: 0 4px 8px -2px rgba(0, 0, 0, 0.1);
 }
 
-.list-component {
-  padding: 20px;
+.list-component-wrap {
+  position: relative;
+  z-index: 0;
+  min-height: 500px;
+}
+.list-component {    
+  -webkit-transition: blur 0.3s linear;
+  -moz-transition: blur 0.3s linear;
+  transition: blur 0.3s linear;
+}
+.list-component.list-loading {
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  filter: blur(2px);
+}
+.list-loader {
+  background-color: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+}
+.list-loader img {
+  position: absolute;
+  width: 39px;
+  height: 30px;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  margin-top: 150px;
+}
+
+.row-component {
+  width: 100%;
+  cursor: pointer;
+  overflow: hidden;
+}
+.row-component.row-header {
+  cursor: default;
+  padding-top: 5px;
+  border-bottom: 2px solid #ddd;
+}
+.row-component.row-header:hover {
+  background: inherit;
+}
+.row-component:nth-child(odd) {
+  background-color: #fafafa;
+}
+.row-component:hover, .row-component:nth-child(odd):hover {
+  background-color: #eee;
+}
+.row-component.row-header .row-column {
+  text-transform: capitalize;
+}
+.row-component .row-column {
+  float: left;
+  padding: 10px;
+  min-width: 150px;
 }
 
 .pager-component {
   position: fixed;
+  background-color: #fff;
+  z-index: 2;
   width: 90%;
   max-width: 1024px;
   min-width: 600px;
