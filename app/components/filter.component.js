@@ -4,29 +4,8 @@ export default class Filter extends Component {
 
 	constructor(props) {
 		super(props);
-		this.elementOffset = 0;
 		console.log(this.props.filters);
 		this.tempFilters = Object.assign({}, this.props.filters, {});
-	}
-
-	componentDidMount() {
-		let el = this.refs.filterComponent;
-		this.elementOffset = el.offsetTop;
-		document.addEventListener("scroll", this._stickyScroll.bind(this), false);
-	}
-
-	_stickyScroll() {
-		let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-		if (scrollTop > this.elementOffset) {
-			//make it sticky
-			document.body.classList.add("sticky-el");
-		} else {
-			document.body.classList.remove("sticky-el");
-		}
-	}
-
-	componentWillUnmount() {
-		document.removeEventListener("scroll", this._stickyScroll.bind(this), false);
 	}
 
 	handleChange(evt, field) {
@@ -35,9 +14,9 @@ export default class Filter extends Component {
 
 	render() {
 		return (
-			<div className="filter-component" ref="filterComponent" style={{overflow: 'hidden'}}>
-				<span style={{float: 'left'}}><i className="fa fa-filter"></i> Filters</span>
-				<form style={{float: 'left'}}>
+			<div className="filter-component" ref="filterComponent">
+				<span><i className="fa fa-filter"></i> Filters</span>
+				<form>
 					<select
 						name="sortOrder"
 						disabled={this.props.loading}
@@ -56,7 +35,7 @@ export default class Filter extends Component {
 						Update list 
 					</button>
 				</form>
-				<a style={{float: 'left'}} className="filter-dropdown" href="javascript:void(0)">
+				<a className="filter-dropdown" href="javascript:void(0)">
 					<i className="fa fa-chevron-down"></i>
 				</a>
 			</div>
