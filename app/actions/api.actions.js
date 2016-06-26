@@ -1,7 +1,7 @@
 import * as actions from '../actions';
 import fetch from 'isomorphic-fetch';
 
-const url = 'https://blaze.ratecity.com.au/api/search/home-loans';
+const url = 'https://test.com/test-api/loans';
 const defaultFilters = {
 	page: 0,
 	per_page: 1
