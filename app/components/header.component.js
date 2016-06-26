@@ -8,7 +8,7 @@ export default class Header extends Component {
 	render() {
 		return (
 			<header className="main-header">
-				<h1 className="main-logo">Header<strong>Component</strong> Here</h1>
+				<h1 className="main-logo">React<strong>Redux</strong></h1>
 			</header>
 		);
 	}

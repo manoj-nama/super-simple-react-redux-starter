@@ -5,7 +5,7 @@ export default class Filter extends Component {
 		return (
 			<div className="filter-component">
 				This is filter component
-				<button onClick={this.props.onUpdate}> Update list </button>
+				<button disabled={this.props.loading} onClick={this.props.onUpdate}> Update list </button>
 			</div>
 		);
 	}
@@ -13,5 +13,6 @@ export default class Filter extends Component {
 
 Filter.PropTypes = {
 	filters: PropTypes.object,
+	loading: PropTypes.boolean,
 	onUpdate: PropTypes.func,
 }

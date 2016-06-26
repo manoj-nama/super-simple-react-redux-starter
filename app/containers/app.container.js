@@ -27,13 +27,16 @@ class AppContainer extends Component {
 				<Header></Header>
 				<Filter
 					onUpdate={this._fetchLoans.bind(this)}  
+					loading={this.props.loans.isFetching}
 					filters={this.props.filters}>
 				</Filter>
 				<List
 					items={this.props.loans.items} 
 					loading={this.props.loans.isFetching}>
 				</List>
-				<Pager paging={this.props.paging}></Pager>				
+				<Pager paging={this.props.paging}
+					loading={this.props.loans.isFetching}>
+				</Pager>				
 			</div>
 		);
 	}

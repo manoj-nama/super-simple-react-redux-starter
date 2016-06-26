@@ -17,6 +17,7 @@ export default class Pager extends Component {
 
 Pager.PropTypes = {
 	paging: PropTypes.object,
+	loading: PropTypes.boolean,
 	// { total: 0,
 	//   hits: 0,
 	//   pages: 0,
