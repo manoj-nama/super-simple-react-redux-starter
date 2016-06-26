@@ -10,8 +10,8 @@ const defaultFilters = {
 export function fetchLoans(filters = defaultFilters) {
 	let qs = '?';
 	let filterArr = [];
-	for(let i in filters) {
-		if(filters.hasOwnProperty(i)) {
+	for (let i in filters) {
+		if (filters.hasOwnProperty(i)) {
 			filterArr.push(i + "=" + filters[i]);
 		}
 	}
@@ -22,9 +22,18 @@ export function fetchLoans(filters = defaultFilters) {
 
 	return dispatch => {
 		dispatch(actions.requestLoans(filters));
-		return setTimeout(function() {
+		return setTimeout(function () {
 			console.log("completed fetch");
-			return dispatch(actions.recieveLoans({hits: [1,2,3]}));
+
+			//update paging state
+			dispatch(actions.changePage({
+				total: 0,
+				hits: 0,
+				pages: 0,
+				currentPage: 1,
+			}));
+			//update items state
+			return dispatch(actions.recieveLoans({ hits: [1, 2, 3] }));
 		}, 3000);
 		// return fetch(url + qs)
 		// 	.then(resp => resp.json())

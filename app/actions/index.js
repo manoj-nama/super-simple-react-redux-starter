@@ -25,10 +25,10 @@ export function updateFilters(filters) {
 	}
 }
 
-export function changePage(page) {
+export function changePage(params) {
 	return {
 		type: CHANGE_PAGE,
-		page
+		params
 	}
 }
 
