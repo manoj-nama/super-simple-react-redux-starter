@@ -4,40 +4,54 @@ export default class Filter extends Component {
 
 	constructor(props) {
 		super(props);
-		console.log(this.props.filters);
 		this.tempFilters = Object.assign({}, this.props.filters, {});
+
+		//Local state for presentational flags
+		this.state = {
+			filterVisible: false
+		};
 	}
 
 	handleChange(evt, field) {
 		this.tempFilters[field] = evt.target.value;
 	}
 
+	toggleFilter() {
+		this.setState({ filterVisible: !this.state.filterVisible });
+	}
+
 	render() {
 		return (
-			<div className="filter-component" ref="filterComponent">
-				<span><i className="fa fa-filter"></i> Filters</span>
-				<form>
-					<select
-						name="sortOrder"
-						disabled={this.props.loading}
-						defaultValue={this.tempFilters['sort_order']}
-						onChange={(e) => {
-							this.handleChange(e, 'sort_order');
-						} }>
-            <option value="asc">Ascending</option>
-            <option value="desc">Descending</option>
-					</select>
-					<button
-						disabled={this.props.loading}
-						onClick={() => {
-							this.props.onUpdate(this.tempFilters);
-						} }> 
-						Update list 
-					</button>
-				</form>
-				<a className="filter-dropdown" href="javascript:void(0)">
-					<i className="fa fa-chevron-down"></i>
-				</a>
+			<div className={'filter-component ' + (this.state.filterVisible ? 'active' : '') }>
+				<div className="action-area" onClick={(e) => {
+					this.toggleFilter();
+				} }>
+					<span><i className="fa fa-filter"></i> Filter</span>
+					<i className={'fa arrow ' + (this.state.filterVisible ? 'fa-chevron-up' : 'fa-chevron-down')}></i>
+				</div>
+				<div className="filter-area">
+					<form>
+						<select
+							name="sortOrder"
+							disabled={this.props.loading}
+							defaultValue={this.tempFilters['sort_order']}
+							onChange={(e) => {
+								this.handleChange(e, 'sort_order');
+							} }>
+							<option value="asc">Ascending</option>
+							<option value="desc">Descending</option>
+						</select>
+						<button
+							className="submit-btn"
+							disabled={this.props.loading}
+							onClick={() => {
+								this.toggleFilter();
+								this.props.onUpdate(this.tempFilters);
+							} }>
+							Update list
+						</button>
+					</form>
+				</div>
 			</div>
 		);
 	}

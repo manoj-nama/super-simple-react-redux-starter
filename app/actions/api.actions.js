@@ -34,7 +34,7 @@ export function fetchLoans(filters = defaultFilters) {
 			}));
 			//update items state
 			return dispatch(actions.recieveLoans({ hits: [1, 2, 3] }));
-		}, 3000);
+		}, 1000);
 		// return fetch(url + qs)
 		// 	.then(resp => resp.json())
 		// 	.then(json => {
