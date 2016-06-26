@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { filterTypes } from "../env/constants";
 
 export default class Filter extends Component {
 
@@ -12,8 +13,8 @@ export default class Filter extends Component {
 		};
 	}
 
-	handleChange(evt, field) {
-		this.tempFilters[field] = evt.target.value;
+	handleChange(evt, field, valField) {
+		this.tempFilters[field] = evt.target[valField || 'value'];
 	}
 
 	toggleFilter() {
@@ -27,51 +28,84 @@ export default class Filter extends Component {
 					this.toggleFilter();
 				} }>
 					<span><i className="fa fa-filter"></i> Filter</span>
-					<i className={'fa arrow ' + (this.state.filterVisible ? 'fa-chevron-up' : 'fa-chevron-down')}></i>
+					<i className={'fa arrow ' + (this.state.filterVisible ? 'fa-chevron-up' : 'fa-chevron-down') }></i>
 				</div>
 				<div className="filter-area">
 					<form>
+						{
+							filterTypes.map((filter, i) => {
+								switch (filter.type) {
+									case 'select':
+										return (
+											<div className="form-control" key={i}>
+												<label htmlFor={filter.field}>{filter.name}</label>
+												<select
+													name={filter.field}
+													id={filter.field}
+													disabled={this.props.loading}
+													defaultValue={this.tempFilters[filter.field]}
+													onChange={(e) => {
+														this.handleChange(e, filter.field);
+													} }>
 
-						<div className="form-control">
-							<label for="sortOrder">Sort Order</label>
-							<select
-								name="sortOrder"
-								id="sortOrder"
+													{
+														filter.options.map((field, i) => {
+															let _field = field.split('_').join(' ');
+															return (<option key={i} value={field}>{_field}</option>);
+														})
+													}
+												</select>
+											</div>
+										)
+
+									case 'check':
+										return (
+											<div className="form-control" key={i}>
+												<label htmlFor={filter.field} className="check">
+													<input
+														type="checkbox"
+														defaultValue={this.tempFilters[filter.field]}
+														name={filter.field}
+														id={filter.field}
+														onChange={(e) => {
+															this.handleChange(e, filter.field, 'checked');
+														} }
+														/>
+													{filter.name}
+												</label>
+											</div>
+										)
+
+									case 'text':
+										return (
+											<div className="form-control" key={i}>
+												<label htmlFor={filter.field}>{filter.name}</label>
+												<input
+													type="text"
+													defaultValue={this.tempFilters[filter.field]}
+													name={filter.field}
+													id={filter.field}
+													onChange={(e) => {
+														this.handleChange(e, filter.field);
+													} }
+													/>
+											</div>
+										)
+								}
+							})
+						}
+
+						<div className="action-area">
+							<button
+								className="submit-btn"
 								disabled={this.props.loading}
-								defaultValue={this.tempFilters['sort_order']}
-								onChange={(e) => {
-									this.handleChange(e, 'sort_order');
+								onClick={() => {
+									this.toggleFilter();
+									this.props.onUpdate(this.tempFilters);
 								} }>
-								<option value="asc">Ascending</option>
-								<option value="desc">Descending</option>
-							</select>
+								Update list
+							</button>
 						</div>
-
-						<div className="form-control">
-							<label for="sortField">Sort Field</label>
-							<select
-								name="sortField"
-								id="sortField"
-								disabled={this.props.loading}
-								defaultValue={this.tempFilters['sort_field']}
-								onChange={(e) => {
-									this.handleChange(e, 'sort_field');
-								} }>
-								<option value="asc">Ascending</option>
-								<option value="desc">Descending</option>
-							</select>
-						</div>
-
-
-						<button
-							className="submit-btn"
-							disabled={this.props.loading}
-							onClick={() => {
-								this.toggleFilter();
-								this.props.onUpdate(this.tempFilters);
-							} }>
-							Update list
-						</button>
 					</form>
 				</div>
 			</div>
