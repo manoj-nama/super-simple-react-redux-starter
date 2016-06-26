@@ -31,16 +31,38 @@ export default class Filter extends Component {
 				</div>
 				<div className="filter-area">
 					<form>
-						<select
-							name="sortOrder"
-							disabled={this.props.loading}
-							defaultValue={this.tempFilters['sort_order']}
-							onChange={(e) => {
-								this.handleChange(e, 'sort_order');
-							} }>
-							<option value="asc">Ascending</option>
-							<option value="desc">Descending</option>
-						</select>
+
+						<div className="form-control">
+							<label for="sortOrder">Sort Order</label>
+							<select
+								name="sortOrder"
+								id="sortOrder"
+								disabled={this.props.loading}
+								defaultValue={this.tempFilters['sort_order']}
+								onChange={(e) => {
+									this.handleChange(e, 'sort_order');
+								} }>
+								<option value="asc">Ascending</option>
+								<option value="desc">Descending</option>
+							</select>
+						</div>
+
+						<div className="form-control">
+							<label for="sortField">Sort Field</label>
+							<select
+								name="sortField"
+								id="sortField"
+								disabled={this.props.loading}
+								defaultValue={this.tempFilters['sort_field']}
+								onChange={(e) => {
+									this.handleChange(e, 'sort_field');
+								} }>
+								<option value="asc">Ascending</option>
+								<option value="desc">Descending</option>
+							</select>
+						</div>
+
+
 						<button
 							className="submit-btn"
 							disabled={this.props.loading}
